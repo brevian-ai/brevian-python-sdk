@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "brevian"
+version = "0.1.1a"
+description = "Python SDK for BREVIAN API"
+authors = ["BREVIAN Inc <engineering@brevian.ai>"]
+readme = "README.md"
+license = "MIT"
+homepage = "https://github.com/brevian-ai/brevian-python-sdk"
+repository = "https://github.com/brevian-ai/brevian-python-sdk"
+keywords = ["brevian", "sdk", "api", "ai", "machine-learning", "artificial-intelligence"]
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.12"
+pytest="7.4.4"
+pytest-asyncio = "^0.23.4"
+pydantic = "^2.6.1"
+httpx = "^0.26.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+pylint = "^3.0.2"
+pytest = "^7.4.4"
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+testpaths = [
+    "tests"
+]
+asyncio_mode = "auto"
