@@ -42,12 +42,14 @@ class BrevianApi:
             httpx_client=httpx.Client(timeout=timeout) if httpx_client is None else httpx_client,
         )
 
-    def post_chat(self, *, messages: typing.List[PostChatRequestMessagesItem], agent_id: str) -> PostChatResponse:
+    def post_chat(
+        self, *, messages: typing.List[PostChatRequestMessagesItem], agent_id: typing.Optional[str] = OMIT
+    ) -> PostChatResponse:
         """
         Parameters:
             - messages: typing.List[PostChatRequestMessagesItem].
 
-            - agent_id: str.
+            - agent_id: typing.Optional[str].
         ---
         from brevian import PostChatRequestMessagesItem, PostChatRequestMessagesItemRole
         from brevian.client import BrevianApi
@@ -63,13 +65,15 @@ class BrevianApi:
                     content="content",
                 )
             ],
-            agent_id="agentId",
         )
         """
+        _request: typing.Dict[str, typing.Any] = {"messages": messages}
+        if agent_id is not OMIT:
+            _request["agentId"] = agent_id
         _response = self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "chat"),
-            json=jsonable_encoder({"messages": messages, "agentId": agent_id}),
+            json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )
@@ -105,12 +109,14 @@ class AsyncBrevianApi:
             httpx_client=httpx.AsyncClient(timeout=timeout) if httpx_client is None else httpx_client,
         )
 
-    async def post_chat(self, *, messages: typing.List[PostChatRequestMessagesItem], agent_id: str) -> PostChatResponse:
+    async def post_chat(
+        self, *, messages: typing.List[PostChatRequestMessagesItem], agent_id: typing.Optional[str] = OMIT
+    ) -> PostChatResponse:
         """
         Parameters:
             - messages: typing.List[PostChatRequestMessagesItem].
 
-            - agent_id: str.
+            - agent_id: typing.Optional[str].
         ---
         from brevian import PostChatRequestMessagesItem, PostChatRequestMessagesItemRole
         from brevian.client import AsyncBrevianApi
@@ -126,13 +132,15 @@ class AsyncBrevianApi:
                     content="content",
                 )
             ],
-            agent_id="agentId",
         )
         """
+        _request: typing.Dict[str, typing.Any] = {"messages": messages}
+        if agent_id is not OMIT:
+            _request["agentId"] = agent_id
         _response = await self._client_wrapper.httpx_client.request(
             "POST",
             urllib.parse.urljoin(f"{self._client_wrapper.get_base_url()}/", "chat"),
-            json=jsonable_encoder({"messages": messages, "agentId": agent_id}),
+            json=jsonable_encoder(_request),
             headers=self._client_wrapper.get_headers(),
             timeout=60,
         )

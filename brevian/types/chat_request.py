@@ -14,7 +14,7 @@ except ImportError:
 
 class ChatRequest(pydantic.BaseModel):
     messages: typing.List[ChatRequestMessagesItem]
-    agent_id: str = pydantic.Field(alias="agentId")
+    agent_id: typing.Optional[str] = pydantic.Field(alias="agentId")
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
