@@ -9,13 +9,17 @@ import httpx
 from .core.api_error import ApiError
 from .core.client_wrapper import AsyncClientWrapper, SyncClientWrapper
 from .core.jsonable_encoder import jsonable_encoder
+from .errors.bad_request_error import BadRequestError
 from .errors.forbidden_error import ForbiddenError
 from .errors.internal_server_error import InternalServerError
+from .errors.not_found_error import NotFoundError
 from .errors.too_many_requests_error import TooManyRequestsError
+from .types.error_response import ErrorResponse
 from .types.forbidden_error_body import ForbiddenErrorBody
 from .types.internal_server_error_body import InternalServerErrorBody
 from .types.post_chat_request_messages_item import PostChatRequestMessagesItem
 from .types.post_chat_response import PostChatResponse
+from .types.sub_query_metadata import SubQueryMetadata
 from .types.too_many_requests_error_body import TooManyRequestsErrorBody
 
 try:
@@ -93,6 +97,44 @@ class BrevianApi:
             raise ApiError(status_code=_response.status_code, body=_response.text)
         raise ApiError(status_code=_response.status_code, body=_response_json)
 
+    def get_citation(self, chat_id: str, message_id: str) -> typing.List[SubQueryMetadata]:
+        """
+        Parameters:
+            - chat_id: str. The ID of the chat
+
+            - message_id: str. The ID of the message to retrieve citations for
+        ---
+        from brevian.client import BrevianApi
+
+        client = BrevianApi(
+            token="YOUR_TOKEN",
+            base_url="https://yourhost.com/path/to/api",
+        )
+        client.get_citation(
+            chat_id="chatId",
+            message_id="messageId",
+        )
+        """
+        _response = self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"chat/{chat_id}/messages/{message_id}/citations"
+            ),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(typing.List[SubQueryMetadata], _response.json())  # type: ignore
+        if _response.status_code == 400:
+            raise BadRequestError(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
+        if _response.status_code == 404:
+            raise NotFoundError(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
 
 class AsyncBrevianApi:
     def __init__(
@@ -154,6 +196,44 @@ class AsyncBrevianApi:
             )
         if _response.status_code == 500:
             raise InternalServerError(pydantic.parse_obj_as(InternalServerErrorBody, _response.json()))  # type: ignore
+        try:
+            _response_json = _response.json()
+        except JSONDecodeError:
+            raise ApiError(status_code=_response.status_code, body=_response.text)
+        raise ApiError(status_code=_response.status_code, body=_response_json)
+
+    async def get_citation(self, chat_id: str, message_id: str) -> typing.List[SubQueryMetadata]:
+        """
+        Parameters:
+            - chat_id: str. The ID of the chat
+
+            - message_id: str. The ID of the message to retrieve citations for
+        ---
+        from brevian.client import AsyncBrevianApi
+
+        client = AsyncBrevianApi(
+            token="YOUR_TOKEN",
+            base_url="https://yourhost.com/path/to/api",
+        )
+        await client.get_citation(
+            chat_id="chatId",
+            message_id="messageId",
+        )
+        """
+        _response = await self._client_wrapper.httpx_client.request(
+            "GET",
+            urllib.parse.urljoin(
+                f"{self._client_wrapper.get_base_url()}/", f"chat/{chat_id}/messages/{message_id}/citations"
+            ),
+            headers=self._client_wrapper.get_headers(),
+            timeout=60,
+        )
+        if 200 <= _response.status_code < 300:
+            return pydantic.parse_obj_as(typing.List[SubQueryMetadata], _response.json())  # type: ignore
+        if _response.status_code == 400:
+            raise BadRequestError(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
+        if _response.status_code == 404:
+            raise NotFoundError(pydantic.parse_obj_as(ErrorResponse, _response.json()))  # type: ignore
         try:
             _response_json = _response.json()
         except JSONDecodeError:
