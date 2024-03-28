@@ -24,7 +24,9 @@ from .post_chat_response_choices_item import PostChatResponseChoicesItem
 from .post_chat_response_choices_item_message import PostChatResponseChoicesItemMessage
 from .post_chat_response_choices_item_message_role import PostChatResponseChoicesItemMessageRole
 from .post_chat_response_usage import PostChatResponseUsage
+from .sub_query_metadata import SubQueryMetadata
 from .too_many_requests_error_body import TooManyRequestsErrorBody
+from .unified_citation import UnifiedCitation
 from .usage import Usage
 
 __all__ = [
@@ -52,6 +54,8 @@ __all__ = [
     "PostChatResponseChoicesItemMessage",
     "PostChatResponseChoicesItemMessageRole",
     "PostChatResponseUsage",
+    "SubQueryMetadata",
     "TooManyRequestsErrorBody",
+    "UnifiedCitation",
     "Usage",
 ]

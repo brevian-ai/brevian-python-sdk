@@ -25,12 +25,15 @@ from .types import (
     PostChatResponseChoicesItemMessage,
     PostChatResponseChoicesItemMessageRole,
     PostChatResponseUsage,
+    SubQueryMetadata,
     TooManyRequestsErrorBody,
+    UnifiedCitation,
     Usage,
 )
-from .errors import ForbiddenError, InternalServerError, TooManyRequestsError
+from .errors import BadRequestError, ForbiddenError, InternalServerError, NotFoundError, TooManyRequestsError
 
 __all__ = [
+    "BadRequestError",
     "ChatRequest",
     "ChatRequestMessagesItem",
     "ChatRequestMessagesItemRole",
@@ -50,6 +53,7 @@ __all__ = [
     "Message",
     "MessageRole",
     "MessageRoleEnum",
+    "NotFoundError",
     "PostChatRequestMessagesItem",
     "PostChatRequestMessagesItemRole",
     "PostChatResponse",
@@ -57,7 +61,9 @@ __all__ = [
     "PostChatResponseChoicesItemMessage",
     "PostChatResponseChoicesItemMessageRole",
     "PostChatResponseUsage",
+    "SubQueryMetadata",
     "TooManyRequestsError",
     "TooManyRequestsErrorBody",
+    "UnifiedCitation",
     "Usage",
 ]
