@@ -12,9 +12,9 @@ except ImportError:
 
 
 class PostChatResponseUsage(pydantic.BaseModel):
-    prompt_tokens: int = pydantic.Field(alias="promptTokens")
-    completion_tokens: int = pydantic.Field(alias="completionTokens")
-    total_tokens: int = pydantic.Field(alias="totalTokens")
+    prompt_tokens: int
+    completion_tokens: int
+    total_tokens: int
 
     def json(self, **kwargs: typing.Any) -> str:
         kwargs_with_defaults: typing.Any = {"by_alias": True, "exclude_unset": True, **kwargs}
@@ -27,5 +27,4 @@ class PostChatResponseUsage(pydantic.BaseModel):
     class Config:
         frozen = True
         smart_union = True
-        allow_population_by_field_name = True
         json_encoders = {dt.datetime: serialize_datetime}

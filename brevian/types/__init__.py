@@ -2,27 +2,18 @@
 
 from .chat_request import ChatRequest
 from .chat_request_messages_item import ChatRequestMessagesItem
-from .chat_request_messages_item_role import ChatRequestMessagesItemRole
-from .chat_response import ChatResponse
-from .chat_response_choices_item import ChatResponseChoicesItem
-from .chat_response_choices_item_message import ChatResponseChoicesItemMessage
-from .chat_response_choices_item_message_role import ChatResponseChoicesItemMessageRole
-from .chat_response_usage import ChatResponseUsage
 from .choice import Choice
 from .choice_message import ChoiceMessage
-from .choice_message_role import ChoiceMessageRole
 from .error_response import ErrorResponse
 from .forbidden_error_body import ForbiddenErrorBody
 from .internal_server_error_body import InternalServerErrorBody
 from .message import Message
-from .message_role import MessageRole
 from .message_role_enum import MessageRoleEnum
 from .post_chat_request_messages_item import PostChatRequestMessagesItem
 from .post_chat_request_messages_item_role import PostChatRequestMessagesItemRole
 from .post_chat_response import PostChatResponse
 from .post_chat_response_choices_item import PostChatResponseChoicesItem
 from .post_chat_response_choices_item_message import PostChatResponseChoicesItemMessage
-from .post_chat_response_choices_item_message_role import PostChatResponseChoicesItemMessageRole
 from .post_chat_response_usage import PostChatResponseUsage
 from .sub_query_metadata import SubQueryMetadata
 from .too_many_requests_error_body import TooManyRequestsErrorBody
@@ -32,27 +23,18 @@ from .usage import Usage
 __all__ = [
     "ChatRequest",
     "ChatRequestMessagesItem",
-    "ChatRequestMessagesItemRole",
-    "ChatResponse",
-    "ChatResponseChoicesItem",
-    "ChatResponseChoicesItemMessage",
-    "ChatResponseChoicesItemMessageRole",
-    "ChatResponseUsage",
     "Choice",
     "ChoiceMessage",
-    "ChoiceMessageRole",
     "ErrorResponse",
     "ForbiddenErrorBody",
     "InternalServerErrorBody",
     "Message",
-    "MessageRole",
     "MessageRoleEnum",
     "PostChatRequestMessagesItem",
     "PostChatRequestMessagesItemRole",
     "PostChatResponse",
     "PostChatResponseChoicesItem",
     "PostChatResponseChoicesItemMessage",
-    "PostChatResponseChoicesItemMessageRole",
     "PostChatResponseUsage",
     "SubQueryMetadata",
     "TooManyRequestsErrorBody",
