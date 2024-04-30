@@ -4,7 +4,7 @@ import datetime as dt
 import typing
 
 from ..core.datetime_utils import serialize_datetime
-from .chat_request_messages_item_role import ChatRequestMessagesItemRole
+from .message_role_enum import MessageRoleEnum
 
 try:
     import pydantic.v1 as pydantic  # type: ignore
@@ -13,7 +13,7 @@ except ImportError:
 
 
 class ChatRequestMessagesItem(pydantic.BaseModel):
-    role: ChatRequestMessagesItemRole
+    role: MessageRoleEnum
     content: str
 
     def json(self, **kwargs: typing.Any) -> str:
